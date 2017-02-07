@@ -14,11 +14,18 @@ namespace Download_Cleaner
             var day = _thisDay.ToString("d");
             return day;
         }
-        public string GetNextDay()
+        public string GetNextMonth()
         {
             var day = _thisDay;
             return day.AddMonths(1).ToString("d");
         }
+
+        public string GetTomorrowDay()
+        {
+            var day = _thisDay;
+            return day.AddDays(1).ToString("d");
+        }
+
         
     }
 }

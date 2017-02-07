@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Download_Cleaner
 {
     class DownloadFolder
     {
-        public string Path = "test";
+
+        public string Path = @"E:\Downloads";
         public void DeleteFiles()
         {
             if (Directory.Exists(Path))
@@ -22,7 +24,8 @@ namespace Download_Cleaner
             }
             else
             {
-                //Папка не существует
+                MessageBox.Show("Папки не существует");
+                Application.Run(new SelectDownloadFolder());
             }
         }
     }

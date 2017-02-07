@@ -16,7 +16,7 @@ namespace Download_Cleaner
             var dloader = new DownloadFolder();
             var cleaningDate = set.GetCleaningDate();
             var today = dates.GetTodayDay();
-            if (today == cleaning_date)
+            if (today == cleaningDate)
             {
                 return true;
                 

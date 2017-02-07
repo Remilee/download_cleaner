@@ -3,31 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Download_Cleaner
 {
     class Program
     {
 
+        [STAThread]
         static void Main(string[] args)
         {
-            var comp = new Comparer();
-            if (comp.Compare_dates())
+            var date = new Dates();
+            var set = new Settings();
+            if (!set.FileExists())
             {
-                var set = new Settings();
-                var dates = new Dates();
-                var dloader = new DownloadFolder();
-                dloader.DeleteFiles();
-                var nextday = dates.GetNextDay();
-                set.InsertNewDate();
+                set.CreateSetFile();
+                Application.Run(new SelectDownloadFolder());
             }
-            else
+            else if (set.FileExists())
             {
-                //забить
+                if (set.GetMode() == "1")
+                {
+                    var comp = new Comparer();
+                    if (comp.Compare_dates())
+                    {
+                        //спросить - удалять ли файлы
+                        var uInter = new UserInteraction();
+                        if (uInter.AskUserAnswer())
+                        {
+                            //dloader.DeleteFiles();
+                            set.InsertNewDate(date.GetNextMonth());
+                        }
+                        else
+                        {
+                            set.InsertNewDate(date.GetTomorrowDay());//set.InsertNewDate(tomorrow);
+                            
+                        }
+                        //MessageBox.Show(IWin32Window, String, String, MessageBoxButtons, MessageBoxIcon, MessageBoxDefaultButton)
+
+                    }
+                    else
+                    {
+                        //забить
+                    }
+                }
             }
-
-
-
         }
+
     }
 }

@@ -9,7 +9,30 @@ namespace Download_Cleaner
 {
     internal class Settings
     {
-        string _path = "dates.txt";
+        string _path = "settings.txt";
+        
+        public bool FileExists()
+        {
+            if (File.Exists(_path))
+            {
+                return true;
+
+            }
+            else return false;
+        }
+
+        public void CreateSetFile()
+        {
+            using (FileStream fileStream = File.Create(_path));
+            
+            using (var stream = new StreamWriter(_path))
+            {
+                stream.WriteLine("1");
+                var dates = new Dates();
+                stream.WriteLine(dates.GetNextMonth());
+            }
+            
+        }
         public string GetCleaningDate()
         {
             if (File.Exists(_path))
@@ -20,13 +43,23 @@ namespace Download_Cleaner
             }
             else { return null; }
         }
-        public void InsertNewDate()
+        public void InsertNewDate(string nextDay)
         {
-            using (var strw = new StreamWriter(_path))
+            using (var strw = new StreamWriter(_path, true))
             {
-                var dates = new Dates();
-                strw.WriteLine(dates.GetNextDay());
+                strw.WriteLine(nextDay);
             }
+        }
+
+        public string GetMode()
+        {
+            var data = File.ReadAllLines(_path);
+            var mode = data.First();
+            if (mode.Contains("1"))
+            {
+                return "1";
+            }
+            else return "no data";
         }
     }
 }
