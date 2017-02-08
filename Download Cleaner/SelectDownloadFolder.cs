@@ -24,7 +24,7 @@ namespace Download_Cleaner
                     buttonOK.Visible = true;
                 }
             var dfolder = new DownloadFolder();
-            dfolder.Path = path;
+            dfolder.path = path;
 
 
         }

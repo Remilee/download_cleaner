@@ -11,12 +11,12 @@ namespace Download_Cleaner
     class DownloadFolder
     {
 
-        public string Path = @"E:\Downloads";
+        public string path = @"E:\Downloads";
         public void DeleteFiles()
         {
-            if (Directory.Exists(Path))
+            if (Directory.Exists(path))
             {
-                var files = Directory.GetFiles(Path);
+                var files = Directory.GetFiles(path);
                 foreach (var f in files)
                 {
                     File.Delete(f);
@@ -28,5 +28,20 @@ namespace Download_Cleaner
                 Application.Run(new SelectDownloadFolder());
             }
         }
+        
+        public List<string> GetExtenstions()
+        {
+            var files = Directory.GetFiles(path);
+            List<string> extenstions = new List<string>();
+            foreach (var f in files)
+            {
+                if (!extenstions.Contains(Path.GetExtension(f)))
+                {
+                    extenstions.Add(Path.GetExtension(f));
+                }
+            }
+            return extenstions;
+        }
+        
     }
 }

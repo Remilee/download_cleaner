@@ -13,6 +13,7 @@ namespace Download_Cleaner
         [STAThread]
         static void Main(string[] args)
         {
+            var dloader = new DownloadFolder();
             var date = new Dates();
             var set = new Settings();
             if (!set.FileExists())
@@ -25,22 +26,22 @@ namespace Download_Cleaner
                 if (set.GetMode() == "1")
                 {
                     var comp = new Comparer();
-                    if (comp.Compare_dates())
+                    if (comp.Compare_dates()) 
                     {
-                        //спросить - удалять ли файлы
                         var uInter = new UserInteraction();
                         if (uInter.AskUserAnswer())
                         {
+                            //спросить про расширения
+                                //окно с типами с checkbox-ами
+                                //выделенное дропнуть
                             //dloader.DeleteFiles();
                             set.InsertNewDate(date.GetNextMonth());
                         }
                         else
                         {
-                            set.InsertNewDate(date.GetTomorrowDay());//set.InsertNewDate(tomorrow);
+                            set.InsertNewDate(date.GetTomorrowDay());
                             
                         }
-                        //MessageBox.Show(IWin32Window, String, String, MessageBoxButtons, MessageBoxIcon, MessageBoxDefaultButton)
-
                     }
                     else
                     {
